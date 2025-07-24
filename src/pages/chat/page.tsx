@@ -1,9 +1,14 @@
 import { useChatView } from "../../context/ChatViewContext";
 import ChatLists from "./list/page";
 import ChatDetailPage from "./details/page";
+import { useEffect } from "react";
 
 export default function ChatPage() {
   const { currentView } = useChatView();
+
+  useEffect(() => {
+    document.title = "Chat";
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row h-full flex-1 gap-4">
