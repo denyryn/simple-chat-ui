@@ -1,5 +1,6 @@
 import type { Participant } from "../../../types/participant";
 import type { Comment } from "../../../types/comment";
+import { useUserData } from "../../../context/UserDataContext";
 
 export default function ChatBubble({
   message,
@@ -14,13 +15,11 @@ export default function ChatBubble({
   isSequence?: boolean;
   type?: Comment["type"];
 }) {
+  const { getAvatarUrl } = useUserData();
+
   const fileName = (url: string) => {
     if (!url || !url.includes("/")) return "Unknown";
     return url.split("/").pop()?.split("?")[0];
-  };
-
-  const avatar = (sender: string) => {
-    return `https://ui-avatars.com/api/?name=${sender}&rounded=true&background=ffffff`;
   };
 
   function renderMessageContent() {
@@ -30,7 +29,9 @@ export default function ChatBubble({
           <img
             src={message}
             alt="sent image"
-            className="max-w-full rounded-lg border"
+            className="max-w-full rounded-lg border cursor-pointer"
+            loading="lazy"
+            onClick={() => window.open(message, "_blank")}
           />
         );
       case "video":
@@ -46,7 +47,7 @@ export default function ChatBubble({
           <div className="border rounded-lg p-4 bg-gray-50">
             <div className="flex items-center gap-4 mb-3">
               <div className="text-4xl">📄</div>
-              <div>
+              <div className="flex flex-col space-y-2">
                 <h3 className="font-medium text-gray-900">PDF Document</h3>
                 <div className="text-sm text-gray-500">
                   {message.includes("/") && (
@@ -57,12 +58,12 @@ export default function ChatBubble({
               </div>
             </div>
 
-            <div className="flex gap-3 mt-2">
+            <div className="flex flex-1 gap-3 mt-2 *:w-1/2 *:transition-colors *:duration-300">
               <a
                 href={message}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+                className="flex items-center justify-center px-3 py-1.5 bg-green-500 text-white rounded-2xl hover:bg-green-700 text-sm"
               >
                 Open PDF
               </a>
@@ -72,27 +73,10 @@ export default function ChatBubble({
                 download={
                   message.includes("/") ? fileName(message) : "document.pdf"
                 }
-                className="px-3 py-1.5 border border-gray-300 rounded hover:bg-gray-100 text-sm"
+                className="flex items-center justify-center px-3 py-1.5 border text-green-500 border-gray-300 rounded-2xl hover:bg-gray-100 text-sm"
               >
                 Save As...
               </a>
-
-              <button
-                onClick={() => {
-                  const pdfWindow = window.open();
-                  pdfWindow!.document.write(`
-                      <iframe 
-                        src="${message}" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:none;">
-                      </iframe>
-                    `);
-                }}
-                className="px-3 py-1.5 border border-gray-300 rounded hover:bg-gray-100 text-sm"
-              >
-                Open in Viewer
-              </button>
             </div>
           </div>
         );
@@ -112,7 +96,7 @@ export default function ChatBubble({
       {!isUserMessage && !isSequence && (
         <img
           className="h-8 w-8 rounded-full border border-green-100"
-          src={avatar(sender)}
+          src={getAvatarUrl(sender)}
           alt="Sender avatar"
         />
       )}
@@ -126,7 +110,7 @@ export default function ChatBubble({
                 !isSequence ? "rounded-bl-none" : ""
               }`
         }
-        ${type === "text" ? "p-4" : "p-0.5"}`}
+        ${type === "text" ? "p-4" : "p-1"}`}
       >
         {!isUserMessage && !isSequence && (
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
