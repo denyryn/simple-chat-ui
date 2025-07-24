@@ -31,8 +31,8 @@ export default function ChatContainer({
 
   if (!currentChat) {
     return (
-      <section className="flex-1 overflow-y-auto px-4 py-6">
-        <p className="text-gray-500">No chat selected.</p>
+      <section className="flex-1 flex items-center justify-center overflow-y-auto px-4 py-6">
+        <p className="text-gray-500 text-xl">No chat selected.</p>
       </section>
     );
   }
