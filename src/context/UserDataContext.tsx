@@ -11,12 +11,17 @@ import type { User } from "../types/user";
 interface ChatDataContextType {
   currentUser: User | null;
   setCurrentUser: (user: User) => void;
+  getAvatarUrl: (userId: string) => string;
 }
 
 const UserContext = createContext<ChatDataContextType | undefined>(undefined);
 
 export const UserDataProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  const getAvatarUrl = (userId: string): string => {
+    return `https://ui-avatars.com/api/?name=${userId}&rounded=true&background=ffffff`;
+  };
 
   const initializeUser = () => {
     const userData: User = {
@@ -35,6 +40,7 @@ export const UserDataProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       currentUser,
       setCurrentUser,
+      getAvatarUrl,
     }),
     [currentUser]
   );
