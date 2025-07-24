@@ -11,7 +11,11 @@ export default function ChatHeader({
   const participants = currentChat?.room.participant || [];
 
   return (
-    <header className="flex items-center justify-between z-10 px-6 py-4 shadow-md rounded-t-xl bg-white">
+    <header
+      className={`flex items-center justify-between z-10 px-6 py-4 shadow-md rounded-t-xl bg-white ${
+        !currentChat ? "hidden" : ""
+      }`}
+    >
       <div className="flex items-center gap-4">
         {/* Back Button */}
         <button className="block lg:hidden" onClick={clearSelection}>
