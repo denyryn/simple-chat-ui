@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import NavLink from "./navlink";
+import NavLink from "./Navlink";
 import Home from "@assets/home.svg";
 import Report from "@assets/report.svg";
 import Chat from "@assets/chat.svg";
 import Menu from "@assets/menu.svg";
 import Logout from "@assets/logout.svg";
-// import { Menu } from "lucide-react";
+import { useUserData } from "../context/UserDataContext";
 
 const STORAGE_KEY = "sidenav-width";
 
@@ -27,6 +27,7 @@ export default function Sidenav() {
 
   const [isResizing, setIsResizing] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { getAvatarUrl, currentUser } = useUserData();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -99,7 +100,8 @@ export default function Sidenav() {
 
         {/* Profile Section */}
         <div className="flex flex-col items-center gap-3 my-12">
-          <div
+          <img
+            src={getAvatarUrl(currentUser?.name || "User")}
             className={`bg-green-500 rounded-full transition-all duration-300 ${
               isMinimized ? "size-12" : "size-20"
             }`}
@@ -109,7 +111,7 @@ export default function Sidenav() {
               isMinimized ? "hidden" : ""
             }`}
           >
-            Administrator
+            {currentUser?.name || "User"}
           </h2>
         </div>
 
