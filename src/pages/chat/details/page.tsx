@@ -12,7 +12,7 @@ export default function ChatDetail() {
       {/* Chat Messages */}
       <ChatContainer currentChat={currentChat} />
       {/* Input Area */}
-      <ChatInput />
+      <ChatInput currentChat={currentChat} />
     </main>
   );
 }
