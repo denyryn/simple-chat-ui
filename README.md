@@ -9,4 +9,4 @@ This repository contains all the required components for the chat system assignm
 📄 [Open chat.json](./src/data/data.json)
 
 ## 3. Deployed Interface (if available)
-🌐 [Live demo link](simple-chat-ui-eta.vercel.app)
+🌐 [Live demo link](https://simple-chat-ui-eta.vercel.app)
