@@ -1,4 +1,4 @@
-import Sidenav from "../components/sidenav";
+import Sidenav from "../components/Sidenav";
 
 export default function MainLayout({
   children,
