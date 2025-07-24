@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@layer theme {
+  :root {
+    --background: #b3ffc6;
+    --primary: #33cc33;
+    --accent: #0066cc;
+  }
+
+  /* @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #000000;
+      --primary: #33cc33;
+      --accent: #0066cc;
+    }
+  } */
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--primary);
+    @apply antialiased;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    @apply bg-gray-50 rounded-xl flex-1 h-screen md:h-[calc(100vh-32px)] w-full;
+  }
+}
