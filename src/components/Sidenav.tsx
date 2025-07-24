@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import NavLink from "./Navlink";
+import NavLink from "../components/NavLink";
 import Home from "@assets/home.svg";
 import Report from "@assets/report.svg";
 import Chat from "@assets/chat.svg";
